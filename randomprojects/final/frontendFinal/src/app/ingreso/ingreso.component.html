@@ -1,0 +1,22 @@
+<label>Nombre del color</label>
+<br>
+<input type="text" id="nombrecolor">
+<br><br>
+<label>Rojo</label>
+<br>
+<input (change) ="setBackgroundColor()" id="red" class="color-slider" type="range" min="0" max="255">
+<br><br>
+<label>Verde</label>
+<br>
+<input (change) ="setBackgroundColor()" id="green" class="color-slider" type="range" min="0" max="255">
+<br><br>
+<label>Azul</label>
+<br>
+<input (change) ="setBackgroundColor()" id="blue" class="color-slider" type="range" min="0" max="255">
+<br>
+<div id="colorpicker" style="width: 50px; height: 50px;">
+
+</div>
+<button (click)="onSave()">Save</button>
+
+

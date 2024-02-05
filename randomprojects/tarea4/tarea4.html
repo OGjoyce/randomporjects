@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<img hidden="true" src="nave2.png" alt="The Scream">
+<p>Use they keyboard to move:</p>
+	<p>A: To move to the left</p>
+	<p>D: To move to the right</p>
+<canvas id="myCanvas" style="width: 100%; height: 100%; background-color: gray;">
+
+	
+</canvas>
+<script type="text/javascript">
+
+  window.onload = function() {
+  		var canvasObjects = {
+		"main": {
+			"x": 100,
+			"y": 100,
+			"obj": ""
+		},
+		"shot":{
+			"x": "",
+			"y": ""
+		}
+	};
+  	var c = document.getElementById("myCanvas");
+	var ctx = c.getContext("2d");
+	draw();
+	function draw(){
+    var drawing = document.getElementById("myCanvas");
+    //var con = drawing.getContext("2d");
+    var image2 = new Image();
+    image2.src = "nave2.png";
+    image2.onload = finishDrawing();
+    function finishDrawing(){
+    console.log(c);
+	ctx.drawImage(image2, 100,  100, 50, 50);
+	ctx.width+=0;
+	canvasObjects.main.x = 100;
+	canvasObjects.main.y = 100;
+	canvasObjects.main.obj = image2;
+	console.log(innerWidth);
+	console.log(c);
+	
+
+	}
+	function moveleft(){
+		ctx.clearRect(0, 0, c.width, c.height);
+		if(canvasObjects.main.x >= 1 ){
+			canvasObjects.main.x = canvasObjects.main.x - 2;
+		}
+		ctx.drawImage(canvasObjects.main.obj, canvasObjects.main.x, canvasObjects.main.y, 50, 50);
+		console.log(canvasObjects.main.x);
+		
+	}
+	function moveright(){
+		ctx.clearRect(0, 0, c.width, c.height);
+		if(canvasObjects.main.x <= c.width -50 ){
+			canvasObjects.main.x = canvasObjects.main.x +2;
+		}
+		ctx.drawImage(canvasObjects.main.obj, canvasObjects.main.x, canvasObjects.main.y, 50, 50);
+		console.log(canvasObjects.main.x);
+	}
+	function shot(){
+	ctx.beginPath();
+	ctx.rect(canvasObjects.main.x+25, canvasObjects.main.y -5,3 + 5, 3+ 5);
+	ctx.stroke();
+	canvasObjects.shot.x = canvasObjects.main.x+25;
+	canvasObjects.shot.y = canvasObjects.main.y -5;
+	moveShot();
+//	mainThread();
+
+	}
+	function moveShot(){
+
+		if(canvasObjects.shot.y >0){
+			ctx.clearRect(0, 0, c.width, c.height);
+			ctx.beginPath();
+			ctx.rect(canvasObjects.shot.x, canvasObjects.shot.y,3 + 5, 3+ 5);
+			ctx.drawImage(canvasObjects.main.obj, canvasObjects.main.x, canvasObjects.main.y, 50, 50);
+			canvasObjects.shot.y = canvasObjects.shot.y -0.5;
+			console.log(canvasObjects.shot.y);
+			ctx.stroke();
+			moveShot();
+		}
+		else{
+			canvasObjects.shot.y = canvasObjects.main.y -5;
+		}
+	
+
+	}
+	function mainThread(){
+/*		if(canvasObjects.shot.y > 1){
+			ctx.clearRect(0, 0, c.width, c.height);
+			ctx.drawImage(canvasObjects.main.obj, canvasObjects.main.x, canvasObjects.main.y, 50, 50);
+			canvasObjects.shot.y = canvasObjects.shot.y  - 0.01;
+			ctx.beginPath();
+			ctx.rect(canvasObjects.shot.x, canvasObjects.shot.y ,3 + 5, 3+ 5);
+			ctx.stroke();
+			mainThread();
+		}
+		else{
+			canvasObjects.shot.x = canvasObjects.main.x+25;
+			canvasObjects.shot.y = canvasObjects.main.y -5;
+		}*/
+		
+
+	}
+	function handleKeys(key){
+		switch(key){
+			case "a":
+			console.log("moving left...");
+			moveleft();
+			break;
+			case "d":
+			console.log("moving right...");
+			moveright();
+			break;
+			case " ":
+			console.log("SHOT");
+			shot();
+			break;
+			default:
+			console.log(key);
+			break;
+		}
+	}
+    
+    window.addEventListener('keypress' , (event) => {
+    // handle keydown
+    handleKeys(event.key);
+});
+  }
+}; 
+
+</script>
+</body>
+</html>
